@@ -12,8 +12,8 @@
 |---|---|---|---|---|
 | 1 | Cisco Catalyst 3750X: VLANs, trunk, layer 2 security | Built, verified | Checks on the switch; tagged frames captured on the trunk. Open: VTY ACL | [tasks](docs/SWITCH-CONFIG.md) · [notes](docs/SWITCH-NOTES.md) |
 | 2 | Proxmox host: bridges, routed Wi-Fi uplink, NAT | Built, reboot-tested | Uplink, bridges, forwarding and NAT survive a reboot | [tasks](docs/PROXMOX-CONFIG.md) · [notes](docs/PROXMOX-NOTES.md) |
-| 3 | OPNsense: routing between zones, DHCP, DNS, rule set | Built, tested (IPv4) | Proof tests V1–V5 and V6–V9 passed. | [tasks](docs/OPNSENSE-CONFIG.md) · [notes](docs/OPNSENSE-NOTES.md) · [run sheet](docs/OPNSENSE-MVP-RUNSHEET.md) |
-| 4 | Home VMs from a cloud-init template | Built | `ops-01`, `ci-01`, `svc-01` running, key-only SSH, zone placement checked | [workbook](docs/blocks/BLOCK-01-TEMPLATE-AND-VMS.md) |
+| 3 | OPNsense: routing between zones, DHCP, DNS, rule set | Built, tested (IPv4) | Proof tests V1–V9 passed | [tasks](docs/OPNSENSE-CONFIG.md) · [notes](docs/OPNSENSE-NOTES.md) · [run sheet](docs/OPNSENSE-MVP-RUNSHEET.md) |
+| 4 | Home VMs from a cloud-init template | Built | `ops-01`, `ci-01`, `svc-01`, `stg-01` running, key-only SSH, zone placement checked | [workbook](docs/blocks/BLOCK-01-TEMPLATE-AND-VMS.md) |
 | 5 | AWS VPC and server with Terraform | In progress | — | [workbook](docs/blocks/BLOCK-03-TERRAFORM.md) |
 | 6 | Server configuration with Ansible | In progress | — | [workbook](docs/blocks/BLOCK-05-ANSIBLE.md) |
 | 7 | WireGuard tunnel, home to AWS | Planned | — | [design](docs/HYBRID-SLICE-DESIGN.md) |
@@ -39,7 +39,7 @@ home router 10.0.0.1                      not administered by me
    │ one cable, 802.1Q trunk, VLANs 10, 20, 30 tagged
 Cisco Catalyst 3750X      layer 2 only, management 10.10.10.2
    ├─ VLAN 10  MGMT      10.10.10.0/24   admin laptop, ops-01
-   ├─ VLAN 20  SERVERS   10.10.20.0/24   ci-01, svc-01
+   ├─ VLAN 20  SERVERS   10.10.20.0/24   ci-01, svc-01, stg-01
    └─ VLAN 30  USERS     10.10.30.0/24   DHCP clients
 ```
 

@@ -42,3 +42,32 @@ terraform.rc
 # Optional: ignore plan files saved before destroying Terraform configuration
 # Uncomment the line below if you want to ignore planout files.
 # planout
+# ---- Project additions ----
+
+# Keys and credentials
+*.pem
+*.key
+id_*
+!id_*.pub
+wg-*.conf
+privatekey
+.aws/
+
+# Application and tool secrets
+.env
+.env.*
+!.env.example
+*.vault-pass
+vault-password*
+
+# Firewall exports contain password hashes and VPN keys
+config*.xml
+
+# Ansible
+*.retry
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
