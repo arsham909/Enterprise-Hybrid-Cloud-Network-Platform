@@ -6,6 +6,8 @@
 
 **Today (2026-10-13):** the on-prem network is built and tested. The AWS side is in progress. This is a learning project, not a production system.
 
+![Home lab joined to AWS by a VPN that home opens. Solid parts are built, dashed parts are planned.](docs/img/overview.jpg)
+
 ## Status
 
 | # | Stage | State | Evidence | Details |
@@ -20,6 +22,11 @@
 | 8 | CI, pull-based deploy, monitoring | Planned | — | [design](docs/HYBRID-SLICE-DESIGN.md) |
 
 ## The network today
+
+![On-prem network: home router, Proxmox host running OPNsense, Cisco 3750X, three VLAN zones](docs/img/network.jpg)
+
+<details>
+<summary>Same diagram as text, with interface names and addresses</summary>
 
 ```text
 internet
@@ -42,6 +49,8 @@ Cisco Catalyst 3750X      layer 2 only, management 10.10.10.2
    ├─ VLAN 20  SERVERS   10.10.20.0/24   ci-01, svc-01, stg-01
    └─ VLAN 30  USERS     10.10.30.0/24   DHCP clients
 ```
+
+</details>
 
 The VLANs separate the zones at layer 2. OPNsense is the only router between them, and its stateful rules are what isolate them:
 
@@ -72,6 +81,7 @@ The rest are in the "What went wrong" table of each notes file.
 - The switch runs an old IOS with known CVEs. Its SSH is not reachable from the internet, and the firewall blocks it from the other zones (checked from USERS). The VTY ACL on the switch itself is not applied yet.
 - Firewall hardening is outstanding: a dedicated admin account, key-only SSH, and TOTP for GUI logins.
 - The uplink is Wi-Fi behind a router I do not administer: no DHCP reservation, and three layers of NAT.
+- IPv6 is not configured. The lab is IPv4 only for now.
 
 ## Repository
 
