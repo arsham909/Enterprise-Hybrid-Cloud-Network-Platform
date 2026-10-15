@@ -1,0 +1,14 @@
+# Proxmox host, trunk port nic0, while the admin laptop on MGMT (10.10.10.50) had no gateway configured. See docs/TROUBLESHOOTING-LOG.md, incident 2. Captured 2026-10-15.
+
+root@pve:~# tcpdump -e -nn -i nic0 -c 6 vlan
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on nic0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+00:00:16.897340 <laptop-mac> > <mac>, ethertype 802.1Q (0x8100), length 64: vlan 10, p 0, ethertype ARP (0x0806), Request who-has 152.2.23.103 tell 10.10.10.50, length 46
+00:00:17.004274 <switch-port-mac> > <mac>, ethertype 802.1Q (0x8100), length 68: vlan 10, p 7, 802.3LLC, dsap SNAP (0xaa) Individual, ssap SNAP (0xaa) Command, ctrl 0x03: oui Cisco (0x00000c), pid PVST (0x010b), length 42: STP 802.1w, Rapid STP, Flags [Learn, Forward], bridge-id 100a.<switch-mac>.8001, length 42
+00:00:17.097085 <laptop-mac> > <mac>, ethertype 802.1Q (0x8100), length 64: vlan 10, p 0, ethertype ARP (0x0806), Request who-has 152.2.23.104 tell 10.10.10.50, length 46
+00:00:17.132166 <laptop-mac> > <mac>, ethertype 802.1Q (0x8100), length 64: vlan 10, p 0, ethertype ARP (0x0806), Request who-has 67.219.144.68 tell 10.10.10.50, length 46
+00:00:17.187236 <laptop-mac> > <mac>, ethertype 802.1Q (0x8100), length 167: vlan 10, p 0, ethertype IPv4 (0x0800), 10.10.10.50.5353 > 224.0.0.251.5353: 0 [1a] [3q] PTR (QM)? _kdeconnect._udp.local. PTR (QM)? _raop._tcp.local. PTR (QM)? _nmea-0183._tcp.local. (121)
+00:00:17.298653 <laptop-mac> > <mac>, ethertype 802.1Q (0x8100), length 64: vlan 10, p 0, ethertype ARP (0x0806), Request who-has 38.145.32.47 tell 10.10.10.50, length 46
+6 packets captured
+6 packets received by filter
+0 packets dropped by kernel

@@ -1,0 +1,18 @@
+# Proxmox host: frames on the trunk port nic0 carry 802.1Q tags (vlan 10, 20, 30). The USERS laptop pings 1.1.1.1 (allowed) and tries the Proxmox GUI on 10.10.10.5:8006 (blocked, no reply). Captured 2026-10-15.
+
+root@pve:~# tcpdump -e -nn -i nic0 -c 20 vlan
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on nic0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+00:22:40.491923 <switch-port-mac> > <mac>, ethertype 802.1Q (0x8100), length 68: vlan 10, p 7, 802.3LLC, dsap SNAP (0xaa) Individual, ssap SNAP (0xaa) Command, ctrl 0x03: oui Cisco (0x00000c), pid PVST (0x010b), length 42: STP 802.1w, Rapid STP, Flags [Learn, Forward], bridge-id 100a.<switch-mac>.8001, length 42
+00:22:40.745935 <laptop-mac> > <fw-mac>, ethertype 802.1Q (0x8100), length 78: vlan 30, p 0, ethertype IPv4 (0x0800), 10.10.30.146.45324 > 10.10.10.5.8006: Flags [S], seq 3360579326, win 64240, options [mss 1460,sackOK,TS val 1815475705 ecr 0,nop,wscale 10], length 0
+00:22:41.002198 <laptop-mac> > <fw-mac>, ethertype 802.1Q (0x8100), length 78: vlan 30, p 0, ethertype IPv4 (0x0800), 10.10.30.146.45340 > 10.10.10.5.8006: Flags [S], seq 544006012, win 64240, options [mss 1460,sackOK,TS val 2587855644 ecr 0,nop,wscale 10], length 0
+00:22:41.087132 <laptop-mac> > <fw-mac>, ethertype 802.1Q (0x8100), length 102: vlan 30, p 0, ethertype IPv4 (0x0800), 10.10.30.146 > 1.1.1.1: ICMP echo request, id 39631, seq 37, length 64
+00:22:41.098705 <fw-mac> > <laptop-mac>, ethertype 802.1Q (0x8100), length 102: vlan 30, p 0, ethertype IPv4 (0x0800), 1.1.1.1 > 10.10.30.146: ICMP echo reply, id 39631, seq 37, length 64
+00:22:41.496279 <switch-port-mac> > <mac>, ethertype 802.1Q (0x8100), length 68: vlan 20, p 7, 802.3LLC, dsap SNAP (0xaa) Individual, ssap SNAP (0xaa) Command, ctrl 0x03: oui Cisco (0x00000c), pid PVST (0x010b), length 42: STP 802.1w, Rapid STP, Flags [Learn, Forward], bridge-id 1014.<switch-mac>.8001, length 42
+00:22:41.496305 <switch-port-mac> > <mac>, ethertype 802.1Q (0x8100), length 68: vlan 30, p 7, 802.3LLC, dsap SNAP (0xaa) Individual, ssap SNAP (0xaa) Command, ctrl 0x03: oui Cisco (0x00000c), pid PVST (0x010b), length 42: STP 802.1w, Rapid STP, Flags [Learn, Forward], bridge-id 101e.<switch-mac>.8001, length 42
+00:22:42.087664 <laptop-mac> > <fw-mac>, ethertype 802.1Q (0x8100), length 102: vlan 30, p 0, ethertype IPv4 (0x0800), 10.10.30.146 > 1.1.1.1: ICMP echo request, id 39631, seq 38, length 64
+00:22:42.109656 <fw-mac> > <laptop-mac>, ethertype 802.1Q (0x8100), length 102: vlan 30, p 0, ethertype IPv4 (0x0800), 1.1.1.1 > 10.10.30.146: ICMP echo reply, id 39631, seq 38, length 64
+[unrelated application traffic removed]
+20 packets captured
+23 packets received by filter
+0 packets dropped by kernel

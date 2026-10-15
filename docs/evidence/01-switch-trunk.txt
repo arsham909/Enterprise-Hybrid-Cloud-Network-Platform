@@ -1,0 +1,15 @@
+# Switch SW1 (Cisco Catalyst 3750X): the trunk to the Proxmox host. Native VLAN 99, only 10, 20, 30 allowed. Captured 2026-10-15.
+
+SW1#show interface trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi1/0/1     on               802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi1/0/1     10,20,30
+
+Port        Vlans allowed and active in management domain
+Gi1/0/1     10,20,30
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi1/0/1     10,20,30

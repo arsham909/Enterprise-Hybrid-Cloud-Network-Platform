@@ -1,0 +1,19 @@
+# Switch SW1: VLANs and access ports. Unused ports parked in VLAN 999 and shut down. Captured 2026-10-15.
+
+SW1#show vlan brie
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active
+10   MGMT                             active    Gi1/0/6
+20   SERVERS                          active    Gi1/0/2, Gi1/0/3
+30   USERS                            active    Gi1/0/4, Gi1/0/5
+99   NATIVE                           active
+999  PARKING                          act/lshut Gi1/0/7, Gi1/0/8, Gi1/0/9, Gi1/0/10, Gi1/0/11, Gi1/0/12
+                                                Gi1/0/13, Gi1/0/14, Gi1/0/15, Gi1/0/16, Gi1/0/17, Gi1/0/18
+                                                Gi1/0/19, Gi1/0/20, Gi1/0/21, Gi1/0/22, Gi1/0/23, Gi1/0/24
+                                                Gi1/1/1, Gi1/1/2, Gi1/1/3, Gi1/1/4
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup

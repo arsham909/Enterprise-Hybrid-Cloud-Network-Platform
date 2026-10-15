@@ -1,0 +1,19 @@
+# Same laptop on USERS: every test here must fail. Firewall GUI on its MGMT and USERS addresses, the Proxmox GUI, switch SSH, the home router. Each attempt shows as a block in 07-firewall-blocks.png. Captured 2026-10-15.
+
+❯ nc -zvw2 10.10.10.1 443
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: TIMEOUT.
+❯ nc -zvw2 10.10.30.1 443
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: TIMEOUT.
+❯ nc -zvw2 10.10.10.5 8006
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: TIMEOUT.
+❯ nc -zvw2 10.10.10.2 22
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: TIMEOUT.
+❯ ping -c 3 10.0.0.1
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+
+--- 10.0.0.1 ping statistics ---
+3 packets transmitted, 0 received, 100% packet loss, time 2084ms
