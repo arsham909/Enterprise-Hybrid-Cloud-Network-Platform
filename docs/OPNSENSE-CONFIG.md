@@ -50,6 +50,7 @@ Left out on purpose until the hosts exist: the svc-01 and ci-01 passes (SERVERS 
 - [x] **V7** Switch: `show mac address-table interface Gi1/0/1` lists the firewall's `net1` MAC in VLANs 10 and 30 (and 20 once something on VLAN 20 has talked).
 - [x] **V8** Laptop on Gi1/0/2 with static 10.10.20.50/24, gateway and DNS 10.10.20.1: internet works, `nc -zvw2 10.10.10.5 8006` fails. Afterwards on the switch: `clear port-security sticky interface Gi1/0/2`.
 - [x] **V9** Reboot the Proxmox host. The firewall starts by itself and V3 and V4 pass again with no help.
+- [x] **V10** Laptop on Gi1/0/6 (MGMT), Wi-Fi off: `ping 1.1.1.1`, `traceroute -n 1.1.1.1` (10.10.10.1, 192.168.250.1, 10.0.0.1, then out) and a DNS lookup work. Added 2026-10-15 after V2 missed it: [troubleshooting log, incident 2](TROUBLESHOOTING-LOG.md).
 
 **Deferred, add later:** O1.4, O4.4, O4.6, O4.8, O6.3, O6.6, O6.7, O6.10, O6.11, the rest of the rule matrix, O8.1–O8.3, O8.5, O9.11–O9.14, O10, WireGuard, all optional extras.
 

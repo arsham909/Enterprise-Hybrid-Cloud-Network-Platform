@@ -97,7 +97,7 @@ nmcli connection modify lab-mgmt \
   ipv4.method manual \
   ipv4.addresses 10.10.10.50/24 \
   ipv4.gateway 10.10.10.1 \
-  ipv4.dns 10.10.10.1 \
+  ipv4.dns 1.1.1.1 \
   ipv4.never-default no
 nmcli connection down lab-mgmt && nmcli connection up lab-mgmt
 ```
@@ -107,6 +107,8 @@ The general form of the command:
 ```bash
 nmcli connection modify "<connection name>" ipv4.addresses <ip>/<prefix> ipv4.gateway <gateway ip> ipv4.dns "<dns ip>" ipv4.method manual
 ```
+
+As applied, the laptop asks 1.1.1.1 for names directly, which MGMT's "allow any" rule permits. The other zones use the firewall's resolver on their gateway address. Using `ipv4.dns 10.10.10.1` here too would make MGMT match them and put its lookups in the firewall's DNS logs.
 
 The 10.10.0.0/16 route is now redundant, because the default route also points at 10.10.10.1. It does no harm. To remove it:
 
@@ -128,16 +130,34 @@ default via 10.10.10.1 dev eno1 proto static metric 100
 192.168.49.0/24 dev br-1feaee088fd3 proto kernel scope link src 192.168.49.1 linkdown
 ```
 
-End to end, with Wi-Fi still off:
+End to end, with Wi-Fi still off. DNS server set, internet reached by IP, the path goes through the MGMT gateway, the Proxmox host's NAT and the home router, and a name resolves and answers over HTTPS. Internet provider hops masked:
 
-```bash
-resolvectl dns eno1               # 10.10.10.1
-ping -c3 1.1.1.1                  # replies
-traceroute -n 1.1.1.1             # 10.10.10.1, 192.168.250.1, 10.0.0.1, then the internet
-curl -sI https://example.com | head -1
+```text
+❯ resolvectl dns eno1; ping -c3 1.1.1.1; traceroute -n 1.1.1.1; curl -sI https://example.com | head -1
+Link 2 (eno1): 1.1.1.1
+PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=55 time=15.2 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=55 time=18.9 ms
+64 bytes from 1.1.1.1: icmp_seq=3 ttl=55 time=14.8 ms
+
+--- 1.1.1.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 14.812/16.291/18.864/1.826 ms
+traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
+ 1  10.10.10.1  0.313 ms  0.309 ms  0.293 ms
+ 2  192.168.250.1  0.440 ms  0.450 ms  0.433 ms
+ 3  10.0.0.1  2.416 ms  3.412 ms  4.065 ms
+ 4  <isp-hop>  16.775 ms  20.694 ms  21.198 ms
+ 5  <isp-hop>  18.959 ms  19.375 ms  25.330 ms
+ 6  <isp-hop>  26.286 ms  27.532 ms  25.217 ms
+ 7  <isp-hop>  24.729 ms  25.036 ms  24.961 ms
+ 8  * * *
+ 9  108.162.239.4  32.153 ms  20.016 ms  17.855 ms
+10  1.1.1.1  14.592 ms  20.571 ms  21.552 ms
+HTTP/2 200
 ```
 
-<!-- paste the output of the four commands above here -->
+Result: proof test V10 passed on 2026-10-15.
 
 ### With Wi-Fi back on
 

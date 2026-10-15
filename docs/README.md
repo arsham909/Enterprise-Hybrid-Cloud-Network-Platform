@@ -24,6 +24,8 @@ Working documents kept during the build. The task lists are checklists with the 
 | [`LESSON-PROXMOX-NETWORKING.md`](LESSON-PROXMOX-NETWORKING.md) | Bridges, VLAN-aware bridges, bridged versus routed, the Wi-Fi uplink |
 | [`LESSON-NFTABLES-NAT.md`](LESSON-NFTABLES-NAT.md) | nftables, forwarding and NAT on the host |
 | [`LESSON-TROUBLESHOOTING.md`](LESSON-TROUBLESHOOTING.md) | The lockout on the Proxmox host and the method used to find its cause |
+| [`TROUBLESHOOTING-LOG.md`](TROUBLESHOOTING-LOG.md) | Every real fault so far: symptom, layer by layer checks, root cause, fix, proof |
+| [`evidence/`](evidence/README.md) | Raw command output and screenshots behind the proof tests |
 | [`LESSON-QM-AUTOMATION.md`](LESSON-QM-AUTOMATION.md) | `qm`, templates and cloud-init |
 | [`LESSON-ANSIBLE-PRIMER.md`](LESSON-ANSIBLE-PRIMER.md) | Ansible concepts before the lab |
 
