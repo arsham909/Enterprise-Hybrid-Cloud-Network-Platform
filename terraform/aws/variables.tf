@@ -19,13 +19,13 @@ variable "project_name" {
 
 }
 
-variable "VPC_range" {
+variable "vpc_range" {
   description = "VPC range"
   type        = string
-  default     = "10.0.0.0/16"
+  default     = "10.50.0.0/16"
 }
 
-variable "cidr_block" {
+variable "vpc_cidr_block" {
   description = "CIDR block for VPC"
   type        = string
   default     = "10.50.0.0/24"
