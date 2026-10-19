@@ -2,21 +2,18 @@ variable "aws_region" {
   description = "AWS region"
   type        = string
   default     = "us-east-1"
-
 }
 
 variable "aws_profile" {
-  description = "AWS profile"
+  description = "AWS CLI profile"
   type        = string
   default     = "forge"
-
 }
 
 variable "project_name" {
-  description = "project name"
+  description = "Project name, used in tags"
   type        = string
   default     = "forge-hybrid"
-
 }
 
 variable "vpc_range" {
@@ -25,8 +22,8 @@ variable "vpc_range" {
   default     = "10.50.0.0/16"
 }
 
-variable "vpc_cidr_block" {
-  description = "CIDR block for VPC"
+variable "subnet_range" {
+  description = "Public subnet range, inside the VPC range"
   type        = string
   default     = "10.50.0.0/24"
 }
